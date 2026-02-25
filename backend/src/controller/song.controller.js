@@ -16,8 +16,8 @@ export const getAllSongs = async (req, res, next) => {
 export const getFeaturedSongs = async (req, res, next) => {
   try {
     const songs = await Song.aggregate([
-      { sample: { size: 6 } }, // Randomly select 10 songs from the collection
-      { $project: { id: 1, title: 1, artist: 1, imageUrl: 1, audioUrl: 1 } }, // Project only the necessary fields
+      { $sample: { size: 6 } }, // Randomly select 10 songs from the collection
+      { $project: { _id: 1, title: 1, artist: 1, imageUrl: 1, audioUrl: 1 } }, // Project only the necessary fields
     ]);
     return res.status(200).json({
       success: true,
@@ -31,8 +31,8 @@ export const getFeaturedSongs = async (req, res, next) => {
 export const getMadeForYouSongs = async (req, res, next) => {
   try {
     const songs = await Song.aggregate([
-      { sample: { size: 4 } }, // Randomly select 10 songs from the collection
-      { $project: { id: 1, title: 1, artist: 1, imageUrl: 1, audioUrl: 1 } }, // Project only the necessary fields
+      { $sample: { size: 4 } }, // Randomly select 10 songs from the collection
+      { $project: { _id: 1, title: 1, artist: 1, imageUrl: 1, audioUrl: 1 } }, // Project only the necessary fields
     ]);
     return res.status(200).json({
       success: true,
@@ -46,8 +46,8 @@ export const getMadeForYouSongs = async (req, res, next) => {
 export const getTrandingSongs = async (req, res, next) => {
   try {
     const songs = await Song.aggregate([
-      { sample: { size: 4 } }, // Randomly select 10 songs from the collection
-      { $project: { id: 1, title: 1, artist: 1, imageUrl: 1, audioUrl: 1 } }, // Project only the necessary fields
+      { $sample: { size: 4 } }, // Randomly select 10 songs from the collection
+      { $project: { _id: 1, title: 1, artist: 1, imageUrl: 1, audioUrl: 1 } }, // Project only the necessary fields
     ]);
     return res.status(200).json({
       success: true,

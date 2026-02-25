@@ -14,7 +14,7 @@ const router = Router();
 // Apply the requireAdmin middleware to all routes in this router
 router.use(requireAdmin);
 
-router.get("/stats", checkAdmin);
+router.get("/check", checkAdmin);
 
 router.post("/songs", createSong);
 router.delete("/songs/:id", deleteSong);
