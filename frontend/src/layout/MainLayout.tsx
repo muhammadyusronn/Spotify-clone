@@ -6,12 +6,14 @@ import {
 import { Outlet } from "react-router-dom";
 import LeftSidebar from "./components/LeftSidebar";
 import FriendsActivity from "./components/FriendsActivity";
+import AudioPlayer from "./components/AudioPlayer";
 
 const MainLayout = () => {
   const isMobile = false; // Replace with actual mobile detection logic
   return (
     <div className="h-screen bg-black text-white flex flex-col">
       <ResizablePanelGroup className="flex-1 h-full">
+        <AudioPlayer />
         {/* Left Sidebar */}
         <ResizablePanel
           defaultSize={20}
