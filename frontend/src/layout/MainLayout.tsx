@@ -7,9 +7,22 @@ import { Outlet } from "react-router-dom";
 import LeftSidebar from "./components/LeftSidebar";
 import FriendsActivity from "./components/FriendsActivity";
 import AudioPlayer from "./components/AudioPlayer";
+import PlaybbackControls from "./components/PlaybbackControls";
+import { useEffect, useState } from "react";
 
 const MainLayout = () => {
-  const isMobile = false; // Replace with actual mobile detection logic
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <div className="h-screen bg-black text-white flex flex-col">
       <ResizablePanelGroup className="flex-1 h-full">
@@ -30,17 +43,18 @@ const MainLayout = () => {
           <Outlet />
         </ResizablePanel>
 
-        <ResizableHandle className="w-2 bg-black rounded-lg transition-colors" />
+        {!isMobile && (
+          <>
+            <ResizableHandle className="w-2 bg-black rounded-lg transition-colors" />
 
-        {/* Right Sidebar */}
-        <ResizablePanel
-          defaultSize={20}
-          minSize={isMobile ? 0 : 10}
-          // maxSize={25}
-        >
-          <FriendsActivity />
-        </ResizablePanel>
+            {/* right sidebar */}
+            <ResizablePanel defaultSize={20} minSize={0} collapsedSize={0}>
+              <FriendsActivity />
+            </ResizablePanel>
+          </>
+        )}
       </ResizablePanelGroup>
+      <PlaybbackControls />
     </div>
   );
 };
